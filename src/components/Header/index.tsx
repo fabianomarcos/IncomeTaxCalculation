@@ -9,13 +9,14 @@ import Logo from '../../assets/logo.svg';
 const Header: React.FC = () => (
   <Container>
     <header>
-      <div className="logo">
-        <img src={Logo} alt="GoFinances" />
-        <span>Gerenciador</span>
-      </div>
+      <Link to="/">
+        <div className="logo">
+          <img src={Logo} alt="GoFinances" />
+          <span>Gerenciador</span>
+        </div>
+      </Link>
       <nav>
-        <Link to="/">Listagem</Link>
-        <Link to="/import">Importar</Link>
+        <Link to="/form-employee">Inserir Funcionário</Link>
       </nav>
     </header>
   </Container>
