@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import api from '../../services/api';
-import { Employee } from '../../store/modules/employers/types';
+import { IEmployee } from '../../store/modules/employers/types';
 
 import { Container, TableContainer } from './styles';
 
 const Dashboard: React.FC = () => {
-  const [employers, setEmployee] = useState<Employee[]>([]);
+  const [employers, setEmployee] = useState<IEmployee[]>([]);
 
+  const teste = useSelector(state => state);
+  console.log(teste);
   useEffect(() => {
     api.get('/employers').then(response => {
       setEmployee(response.data);
@@ -39,7 +42,7 @@ const Dashboard: React.FC = () => {
                   salario,
                   desconto,
                   dependentes,
-                }: Employee) => (
+                }: IEmployee) => (
                   <tr key={id}>
                     <td className="name">{nome}</td>
                     <td>{cpf}</td>

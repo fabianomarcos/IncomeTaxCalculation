@@ -1,14 +1,26 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 interface CardProps {
   total?: boolean;
 }
 
+const appearFromDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(150px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 export const Container = styled.div`
+  animation: ${appearFromDown} 1s;
   width: 100%;
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
 `;
 
 export const Title = styled.h1`
@@ -48,8 +60,6 @@ export const Card = styled.div`
 `;
 
 export const TableContainer = styled.section`
-  margin-top: 64px;
-
   table {
     width: 100%;
     border-spacing: 0 8px;
