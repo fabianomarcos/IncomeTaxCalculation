@@ -1,21 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable react/no-unused-prop-types */
+import React, { useState, useEffect, useCallback } from 'react';
 
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
 import api from '../../services/api';
 import { IEmployee } from '../../store/modules/employers/types';
+import calculateDiscountIRRF from '../../utils/CalculateIRRF';
+import formatValue from '../../utils/formatValue';
+import { cpfMask } from '../../utils/cpfMask';
 
 import { Container, TableContainer } from './styles';
+import { editEmployeeRequest } from '../../store/modules/employers/actions';
+
+interface IEmployersResponse {
+  id: string;
+  nome: string;
+  cpf: string;
+  salario: number;
+  desconto: number;
+  salarioFormatted: string;
+  descontoFormatted: string;
+  dependentes: number;
+}
 
 const Dashboard: React.FC = () => {
-  const [employers, setEmployee] = useState<IEmployee[]>([]);
+  const dispatch = useDispatch();
 
-  const teste = useSelector(state => state);
-  console.log(teste);
+  const [employers, setEmployers] = useState<IEmployersResponse[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
-    api.get('/employers').then(response => {
-      setEmployee(response.data);
+    api.get<IEmployee[]>('/employers').then(response => {
+      const employersFormatted = response.data.map(item => {
+        return {
+          ...item,
+          cpf: cpfMask(item.cpf),
+          salarioFormatted: formatValue(item.salario),
+          descontoFormatted: formatValue(
+            calculateDiscountIRRF(item.salario, item.dependentes),
+          ),
+        };
+      });
+      setEmployers(employersFormatted);
     });
   }, []);
+
+  async function handleDeleteEmployee(id: string): Promise<void> {
+    try {
+      setModalOpen(!modalOpen);
+
+      await api.delete(`/employers/${id}`);
+
+      setEmployers(employers.filter(findEmployee => findEmployee.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleUpdateEmployee = useCallback(
+    (employee: IEmployee) => {
+      dispatch(editEmployeeRequest(employee));
+    },
+    [dispatch],
+  );
 
   return (
     <>
@@ -27,9 +77,10 @@ const Dashboard: React.FC = () => {
                 <th>Nome</th>
                 <th className="center">CPF</th>
                 <th>Salário</th>
-                <th>Desconto</th>
+                <th>Desconto INSS</th>
                 <th>Dependentes</th>
                 <th>Desconto IRPF</th>
+                <th>Ações</th>
               </tr>
             </thead>
 
@@ -39,17 +90,47 @@ const Dashboard: React.FC = () => {
                   id,
                   nome,
                   cpf,
-                  salario,
                   desconto,
+                  salario,
+                  salarioFormatted,
+                  descontoFormatted,
                   dependentes,
-                }: IEmployee) => (
+                }: IEmployersResponse) => (
                   <tr key={id}>
                     <td className="name">{nome}</td>
                     <td>{cpf}</td>
-                    <td>{salario}</td>
+                    <td>{salarioFormatted}</td>
                     <td>{desconto}</td>
                     <td>{dependentes}</td>
-                    <td>{dependentes}</td>
+                    <td>{descontoFormatted}</td>
+                    <td>
+                      <FiTrash2
+                        onClick={() => handleDeleteEmployee(id)}
+                        color="#ff0b0b"
+                        size={20}
+                      />
+                      <Link
+                        to={{
+                          pathname: `/form-employee/${id}`,
+                          state: { id },
+                        }}
+                      >
+                        <FiEdit
+                          onClick={() =>
+                            handleUpdateEmployee({
+                              id,
+                              nome,
+                              cpf,
+                              desconto,
+                              salario,
+                              dependentes,
+                            })
+                          }
+                          color="#3e863e"
+                          size={20}
+                        />
+                      </Link>
+                    </td>
                   </tr>
                 ),
               )}

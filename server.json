@@ -1,28 +1,28 @@
 {
   "employers": [
     {
-      "id": "fd12a3g4s5h3fg1hgs4h45d64h3123",
       "nome": "Letícia Aurora Farias",
       "cpf": "936.938.039-60",
-      "salario": 998,
-      "desconto": 74.85,
-      "dependentes": 2
+      "salario": "1800",
+      "desconto": "120",
+      "dependentes": "0",
+      "id": "fd12a3g4s5h3fg1hgs4h45d64h3123"
     },
     {
-      "id": "fd12a3g4s5h3fg1hgs4h45d64h3213",
       "nome": "Edson Thiago Drumond",
-      "cpf": "748.517.476-24",
-      "salario": 1045,
-      "desconto": 78.38,
-      "dependentes": 1
+      "cpf": "748.517.476-48",
+      "salario": "1045",
+      "desconto": "78.38",
+      "dependentes": "1",
+      "id": "fd12a3g4s5h3fg1hgs4h45d64h3213"
     },
     {
-      "id": "fd12a3g4s5h3fg1hgs4h45d64h3152",
-      "nome": "Fátima Elza Tereza Castro",
-      "cpf": "701.118.872-08",
-      "salario": 5500,
-      "desconto": 628.95,
-      "dependentes": 0
+      "nome": "Letícia Aurora Farias",
+      "cpf": "936.938.039-60",
+      "salario": "0",
+      "desconto": "0",
+      "dependentes": "0",
+      "id": "fd12a3g4s5h3fg1hgs4h45d64h3152"
     },
     {
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3925",
@@ -33,12 +33,36 @@
       "dependentes": 3
     },
     {
-      "id": "fd12a3g4s5h3fg1hgs4h45d64h3195",
-      "nome": "Valentina Clara Nunes",
-      "cpf": "101.151.404-41",
-      "salario": 10000,
-      "desconto": 713.1,
-      "dependentes": 4
+      "nome": "Valentina Clara",
+      "cpf": "101.151.404444",
+      "salario": "10000",
+      "desconto": "713.1",
+      "dependentes": "4",
+      "id": "fd12a3g4s5h3fg1hgs4h45d64h3195"
+    },
+    {
+      "nome": "Davi Marcos",
+      "cpf": "069.608.367-75",
+      "salario": "1800",
+      "desconto": "0",
+      "dependentes": "0",
+      "id": "AwXhSwj"
+    },
+    {
+      "nome": "Ester Marcos",
+      "cpf": "069.608.366-38",
+      "salario": "1500",
+      "desconto": "150",
+      "dependentes": "2",
+      "id": "o8I9c9-"
+    },
+    {
+      "nome": "fulano de tal",
+      "cpf": "058.455.555-63",
+      "salario": "1200",
+      "desconto": "0",
+      "dependentes": "0",
+      "id": "-lm97ob"
     }
   ]
 }

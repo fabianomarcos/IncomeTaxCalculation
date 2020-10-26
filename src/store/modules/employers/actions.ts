@@ -1,29 +1,30 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { ActionTypes, IEmployee } from './types';
 
 export function editEmployeeRequest(employee: IEmployee) {
   return {
     type: ActionTypes.editEmployeeRequest,
     payload: {
-      employee,
+      ...employee,
+      isUpdateRoute: `/employers/${employee.id}`,
     },
   };
 }
 
-export function registerEmployeeSuccess() {
+export function setEmptyFormEmployee(employee: IEmployee) {
   return {
     type: ActionTypes.registerEmployeeSuccess,
     payload: {
-      product: '',
+      ...employee,
+      isUpdateRoute: '',
     },
   };
 }
 
-export function registerEmployeeFailure(productId: number) {
+export function registerEmployeeFailure() {
   return {
     type: ActionTypes.registerEmployeeFailure,
     payload: {
-      productId,
+      employee: {},
     },
   };
 }

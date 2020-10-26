@@ -1,25 +1,29 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
+import produce from 'immer';
 import { Reducer } from 'redux';
-import { IEmployee } from './types';
+import { string } from 'yup';
+import { ActionTypes, IEmployee } from './types';
 
-const INITIAL_STATE: IEmployeeState = {
-  employee: {
-    id: '',
-    nome: '',
-    cpf: '',
-    salario: 0,
-    desconto: 0,
-    dependentes: 0,
-  },
+const INITIAL_STATE: IEmployee = {
+  id: '',
+  nome: '',
+  cpf: '',
+  salario: 0,
+  desconto: 0,
+  dependentes: 0,
+  isUpdateRoute: '',
 };
-interface IEmployeeState {
-  employee: IEmployee;
-}
 
-const employee: Reducer<IEmployeeState> = () => {
-  return INITIAL_STATE;
+const employee: Reducer<IEmployee> = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case ActionTypes.editEmployeeRequest: {
+      return {
+        ...action.payload,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
 };
 
 export default employee;

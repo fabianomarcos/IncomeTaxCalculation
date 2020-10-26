@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
 export enum ActionTypes {
-  editEmployeeRequest = 'REGISTER_EMPLOYEE_REQUEST',
+  editEmployeeRequest = 'EDIT_EMPLOYEE_REQUEST',
+  deleteEmployeeRequest = 'DELETE_EMPLOYEE_REQUEST',
   registerEmployeeSuccess = 'REGISTER_EMPLOYEE_SUCCESS',
   registerEmployeeFailure = 'REGISTER_EMPLOYEE_FAILURE',
 }
@@ -12,4 +12,9 @@ export interface IEmployee {
   salario: number;
   desconto: number;
   dependentes: number;
+  isUpdateRoute?: string;
+}
+
+export interface IEmployeeState {
+  employee: IEmployee;
 }

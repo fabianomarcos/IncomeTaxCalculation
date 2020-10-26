@@ -50,6 +50,10 @@ export const AnimationContainer = styled.div`
       a {
         margin: 0;
       }
+
+      .success {
+        background: green;
+      }
     }
 
     h1 {

@@ -27,10 +27,7 @@ export const Container = styled.div<ContainerProps>`
   ${props =>
     props.isError &&
     css`
-      color: #fff;
-
       background: #c53030;
-
       border-color: #c53030;
     `}
 
@@ -38,6 +35,8 @@ export const Container = styled.div<ContainerProps>`
     props.isFocused &&
     css`
       color: #5636d3;
+
+      background: #5636d3;
 
       border-color: #5636d3;
     `}
@@ -67,10 +66,6 @@ export const Error = styled(Tooltip)`
   height: 16px;
   margin-left: -20px;
   margin-bottom: 3px;
-
-  svg {
-    background: #c53030;
-  }
 
   span {
     background: #fff;

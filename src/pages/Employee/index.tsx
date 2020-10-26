@@ -1,21 +1,31 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable @typescript-eslint/interface-name-prefix */
-/* eslint-disable react/prop-types */
 import { FormHandles } from '@unform/core';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Form } from '@unform/web';
-
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
 import getValidationErrors from '../../utils/getValidationErrors';
-import { IEmployee } from '../../store/modules/employers/types';
 import api from '../../services/api';
-import Input from '../../components/Input';
+
+import { IEmployee, IEmployeeState } from '../../store/modules/employers/types';
 import { Container, Content, AnimationContainer } from './styles';
 import Dashboard from '../Dashboard';
+import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 const Employee: React.FC = () => {
+  const state = useSelector<IEmployeeState, IEmployee>(
+    stateInitial => stateInitial.employee,
+  );
+
+  const [initialState, setInitialState] = useState(state);
+
+  const { isUpdateRoute } = useSelector<IEmployeeState, IEmployee>(
+    stat => stat.employee,
+  );
+
   const formRef = useRef<FormHandles>(null);
 
   const history = useHistory();
@@ -25,21 +35,35 @@ const Employee: React.FC = () => {
       formRef.current?.setErrors({});
 
       const message = 'Campo obrigatório';
+      const yupRequired = Yup.string().required(message);
 
       try {
         const schema = Yup.object().shape({
-          nome: Yup.string().required(message),
-          cpf: Yup.string().required(message),
-          salario: Yup.string().required(message),
-          desconto: Yup.string().required(message),
-          dependentes: Yup.string().required(message),
+          nome: yupRequired,
+          cpf: yupRequired,
+          salario: yupRequired,
+          desconto: yupRequired,
+          dependentes: yupRequired,
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('/employers', data);
+        if (!isUpdateRoute) {
+          await api.post('/employers', data);
+        } else {
+          await api.put(isUpdateRoute, data);
+        }
+
+        setInitialState({
+          id: '',
+          nome: '',
+          cpf: '',
+          salario: 0,
+          desconto: 0,
+          dependentes: 0,
+        });
 
         history.push('/');
       } catch (err) {
@@ -50,7 +74,7 @@ const Employee: React.FC = () => {
         }
       }
     },
-    [history],
+    [history, isUpdateRoute],
   );
   return (
     <>
@@ -59,11 +83,15 @@ const Employee: React.FC = () => {
           <AnimationContainer>
             <h1>Cadastro de Funcionários</h1>
 
-            <Form ref={formRef} onSubmit={handleSubmit}>
+            <Form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              initialData={initialState}
+            >
               <div className="input-content">
                 <div>
                   <span>Nome</span>
-                  <Input name="nome" placeholder="Funcionário" />
+                  <Input name="nome" placeholder="Nome do Funcionário" />
                 </div>
                 <div>
                   <span>CPF</span>
@@ -87,7 +115,9 @@ const Employee: React.FC = () => {
                 <Link to="/">
                   <Button>Cancelar</Button>
                 </Link>
-                <Button type="submit">Cadastrar</Button>
+                <Button className="success" type="submit">
+                  Cadastrar
+                </Button>
               </div>
             </Form>
           </AnimationContainer>
