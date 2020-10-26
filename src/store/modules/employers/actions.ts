@@ -1,11 +1,15 @@
-import { ActionTypes, IEmployee } from './types';
+import { ActionTypes, IEmployee, IEmployeeList } from './types';
 
-export function editEmployeeRequest(employee: IEmployee) {
+export function editEmployeeRequest(
+  employee: IEmployee,
+  employersList: IEmployeeList,
+) {
   return {
     type: ActionTypes.editEmployeeRequest,
     payload: {
       ...employee,
-      isUpdateRoute: `/employers/${employee.id}`,
+      isUpdateRoute: `/employers/${employee.employee.id}`,
+      employers: [{ ...employersList, employee }],
     },
   };
 }

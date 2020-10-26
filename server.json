@@ -3,7 +3,7 @@
     {
       "nome": "Letícia Aurora Farias",
       "cpf": "936.938.039-60",
-      "salario": "1800",
+      "salario": "2500",
       "desconto": "120",
       "dependentes": "0",
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3123"
@@ -55,6 +55,14 @@
       "desconto": "200",
       "dependentes": "1",
       "id": "-lm97ob"
+    },
+    {
+      "nome": "teste",
+      "cpf": "06960566536",
+      "salario": "1200",
+      "desconto": "120",
+      "dependentes": "3",
+      "id": "63I3J5a"
     }
   ]
 }

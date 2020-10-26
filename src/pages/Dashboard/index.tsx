@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import api from '../../services/api';
-import { IEmployee } from '../../store/modules/employers/types';
+import { IEmployee, IEmployeeList } from '../../store/modules/employers/types';
 import calculateDiscountIRRF from '../../utils/CalculateIRRF';
 import formatValue from '../../utils/formatValue';
 import { cpfMask } from '../../utils/cpfMask';
@@ -21,9 +21,9 @@ interface IEmployersResponse {
   cpf: string;
   salario: number;
   desconto: number;
-  salarioFormatted: string;
-  descontoFormatted: string;
   dependentes: number;
+  descontoFormatted: string;
+  salarioFormatted: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -33,7 +33,7 @@ const Dashboard: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    api.get<IEmployee[]>('/employers').then(response => {
+    api.get<IEmployersResponse[]>('/employers').then(response => {
       const employersFormatted = response.data.map(item => {
         return {
           ...item,
@@ -61,8 +61,8 @@ const Dashboard: React.FC = () => {
   }
 
   const handleUpdateEmployee = useCallback(
-    (employee: IEmployee) => {
-      dispatch(editEmployeeRequest(employee));
+    (employee: IEmployee, employersList: any) => {
+      dispatch(editEmployeeRequest(employee, employersList));
     },
     [dispatch],
   );
@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
                   salarioFormatted,
                   descontoFormatted,
                   dependentes,
-                }: IEmployersResponse) => (
+                }: any) => (
                   <tr key={id}>
                     <td className="name">{nome}</td>
                     <td>{cpf}</td>
@@ -117,14 +117,19 @@ const Dashboard: React.FC = () => {
                       >
                         <FiEdit
                           onClick={() =>
-                            handleUpdateEmployee({
-                              id,
-                              nome,
-                              cpf,
-                              desconto,
-                              salario,
-                              dependentes,
-                            })
+                            handleUpdateEmployee(
+                              {
+                                employee: {
+                                  id,
+                                  nome,
+                                  cpf,
+                                  desconto,
+                                  salario,
+                                  dependentes,
+                                },
+                              },
+                              employers,
+                            )
                           }
                           color="#3e863e"
                           size={20}

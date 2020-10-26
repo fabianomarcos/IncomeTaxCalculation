@@ -2,18 +2,30 @@ import { Reducer } from 'redux';
 import { ActionTypes, IEmployee } from './types';
 
 const INITIAL_STATE: IEmployee = {
-  id: '',
-  nome: '',
-  cpf: '',
-  salario: 0,
-  desconto: 0,
-  dependentes: 0,
+  employee: {
+    id: '',
+    nome: '',
+    cpf: '',
+    salario: 0,
+    desconto: 0,
+    dependentes: 0,
+  },
   isUpdateRoute: '',
 };
 
-const employee: Reducer<IEmployee> = (state = INITIAL_STATE, action) => {
+const employeeForm: Reducer<IEmployee> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ActionTypes.editEmployeeRequest: {
+      const { employers } = state;
+      const { employee } = state;
+      const { isUpdateRoute } = state;
+      // const { employee } = state;
+
+      console.log('employer', employee);
+      console.log('state', isUpdateRoute);
+      console.log('lista', employers);
+
+      //  const employeeRegisteredIndex = employers?.employers.findIndex(employee => employee.cpf === )
       return {
         ...action.payload,
       };
@@ -31,4 +43,4 @@ const employee: Reducer<IEmployee> = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default employee;
+export default employeeForm;

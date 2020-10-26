@@ -35,14 +35,17 @@ const Header: React.FC = () => {
             <Link
               onClick={() =>
                 resetForm({
-                  id: '',
-                  nome: '',
-                  cpf: '',
-                  salario: 0,
-                  desconto: 0,
-                  dependentes: 0,
+                  employee: {
+                    id: '',
+                    nome: '',
+                    cpf: '',
+                    salario: 0,
+                    desconto: 0,
+                    dependentes: 0,
+                  },
                   isUpdateRoute: '',
-                })}
+                })
+              }
               to="/form-employee"
             >
               Inserir Funcionário

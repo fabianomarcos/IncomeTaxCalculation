@@ -7,13 +7,20 @@ export enum ActionTypes {
 }
 
 export interface IEmployee {
-  id: string;
-  nome: string;
-  cpf: string;
-  salario: number;
-  desconto: number;
-  dependentes: number;
+  employee: {
+    id: string;
+    nome: string;
+    cpf: string;
+    salario: number;
+    desconto: number;
+    dependentes: number;
+  };
   isUpdateRoute?: string;
+  employers?: IEmployeeList;
+}
+
+export interface IEmployeeList {
+  employers: IEmployee[];
 }
 
 export interface IEmployeeState {

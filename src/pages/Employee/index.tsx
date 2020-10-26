@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-expressions */
 import { FormHandles } from '@unform/core';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
@@ -20,11 +19,7 @@ const Employee: React.FC = () => {
     stateInitial => stateInitial.employee,
   );
 
-  const [initialState, setInitialState] = useState(state);
-
-  const { isUpdateRoute } = useSelector<IEmployeeState, IEmployee>(
-    stat => stat.employee,
-  );
+  const { isUpdateRoute, employee } = state;
 
   const formRef = useRef<FormHandles>(null);
 
@@ -56,15 +51,6 @@ const Employee: React.FC = () => {
           await api.put(isUpdateRoute, data);
         }
 
-        setInitialState({
-          id: '',
-          nome: '',
-          cpf: '',
-          salario: 0,
-          desconto: 0,
-          dependentes: 0,
-        });
-
         history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -83,11 +69,7 @@ const Employee: React.FC = () => {
           <AnimationContainer>
             <h1>Cadastro de Funcionários</h1>
 
-            <Form
-              ref={formRef}
-              onSubmit={handleSubmit}
-              initialData={initialState}
-            >
+            <Form ref={formRef} onSubmit={handleSubmit} initialData={employee}>
               <div className="input-content">
                 <div>
                   <span>Nome</span>
@@ -116,9 +98,7 @@ const Employee: React.FC = () => {
                   <Button>Cancelar</Button>
                 </Link>
                 <Button className="success" type="submit">
-                  {initialState.isUpdateRoute === ''
-                    ? 'Cadastrar'
-                    : 'Atualizar'}
+                  {isUpdateRoute === '' ? 'Cadastrar' : 'Atualizar'}
                 </Button>
               </div>
             </Form>
