@@ -1,5 +1,6 @@
 export enum ActionTypes {
   editEmployeeRequest = 'EDIT_EMPLOYEE_REQUEST',
+  resetForm = 'RESET_FORM',
   deleteEmployeeRequest = 'DELETE_EMPLOYEE_REQUEST',
   registerEmployeeSuccess = 'REGISTER_EMPLOYEE_SUCCESS',
   registerEmployeeFailure = 'REGISTER_EMPLOYEE_FAILURE',

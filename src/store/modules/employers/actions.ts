@@ -12,7 +12,7 @@ export function editEmployeeRequest(employee: IEmployee) {
 
 export function setEmptyFormEmployee(employee: IEmployee) {
   return {
-    type: ActionTypes.registerEmployeeSuccess,
+    type: ActionTypes.resetForm,
     payload: {
       ...employee,
       isUpdateRoute: '',

@@ -1,7 +1,6 @@
 import produce from 'immer';
 import { Reducer } from 'redux';
-import { string } from 'yup';
-import { ActionTypes, IEmployee } from './types';
+import { ActionTypes, IEmployee, IEmployeeState } from './types';
 
 const INITIAL_STATE: IEmployee = {
   id: '',
@@ -20,6 +19,13 @@ const employee: Reducer<IEmployee> = (state = INITIAL_STATE, action) => {
         ...action.payload,
       };
     }
+
+    case ActionTypes.resetForm: {
+      return {
+        ...action.payload,
+      };
+    }
+
     default: {
       return state;
     }

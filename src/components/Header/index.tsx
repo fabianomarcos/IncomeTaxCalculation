@@ -8,7 +8,7 @@ import { Container } from './styles';
 
 import Logo from '../../assets/logo.svg';
 import { setEmptyFormEmployee } from '../../store/modules/employers/actions';
-import { IEmployee, IEmployeeState } from '../../store/modules/employers/types';
+import { IEmployee } from '../../store/modules/employers/types';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,6 +39,7 @@ const Header: React.FC = () => {
                 salario: 0,
                 desconto: 0,
                 dependentes: 0,
+                isUpdateRoute: '',
               })
             }
             to="/form-employee"

@@ -33,7 +33,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/prefer-default-export": "off",
-    "eslint-disable no-unused-expressions": "off",
+    "no-unused-expressions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "import/extensions": [
       "error",

@@ -49,19 +49,11 @@
       "id": "AwXhSwj"
     },
     {
-      "nome": "Ester Marcos",
-      "cpf": "069.608.366-38",
+      "nome": "fulano de tal dois",
+      "cpf": "058.455.555-75",
       "salario": "1500",
-      "desconto": "150",
-      "dependentes": "2",
-      "id": "o8I9c9-"
-    },
-    {
-      "nome": "fulano de tal",
-      "cpf": "058.455.555-63",
-      "salario": "1200",
-      "desconto": "0",
-      "dependentes": "0",
+      "desconto": "200",
+      "dependentes": "1",
       "id": "-lm97ob"
     }
   ]
