@@ -116,7 +116,9 @@ const Employee: React.FC = () => {
                   <Button>Cancelar</Button>
                 </Link>
                 <Button className="success" type="submit">
-                  Cadastrar
+                  {initialState.isUpdateRoute === ''
+                    ? 'Cadastrar'
+                    : 'Atualizar'}
                 </Button>
               </div>
             </Form>

@@ -1,6 +1,5 @@
-import produce from 'immer';
 import { Reducer } from 'redux';
-import { ActionTypes, IEmployee, IEmployeeState } from './types';
+import { ActionTypes, IEmployee } from './types';
 
 const INITIAL_STATE: IEmployee = {
   id: '',
