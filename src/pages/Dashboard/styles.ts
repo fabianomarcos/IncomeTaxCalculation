@@ -69,4 +69,14 @@ export const TableContainer = styled.section`
       margin: 0 10px;
     }
   }
+  @media (max-width: 500px) {
+    table td {
+      width: 90vw;
+      display: inline-block;
+    }
+
+    th {
+      display: none;
+    }
+  }
 `;
