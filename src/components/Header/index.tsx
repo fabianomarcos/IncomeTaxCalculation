@@ -44,10 +44,11 @@ const Header: React.FC = () => {
                     dependentes: 0,
                   },
                   isUpdateRoute: '',
-                })}
+                })
+              }
               to="/form-employee"
             >
-              Inserir Funcionário
+              Novo Funcionário
             </Link>
           )}
         </nav>

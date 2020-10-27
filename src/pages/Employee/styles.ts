@@ -99,4 +99,32 @@ export const AnimationContainer = styled.div`
       color: ${shade(0.2, '#ff9000')};
     }
   }
+
+  @media (max-width: 500px) {
+    .input-content {
+      flex-wrap: wrap;
+      justify-content: center;
+
+      div {
+        width: 90vw;
+      }
+    }
+
+    .button-content {
+      display: flex !important;
+      width: 90vw;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      flex-direction: column-reverse;
+    }
+
+    table td {
+      width: 90vw;
+      display: inline-block;
+    }
+
+    th {
+      display: none;
+    }
+  }
 `;
