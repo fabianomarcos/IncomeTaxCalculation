@@ -2,9 +2,9 @@
   "employers": [
     {
       "nome": "Letícia Aurora Farias",
-      "cpf": "936.938.039-60",
-      "salario": "2500",
-      "desconto": "120",
+      "cpf": "936.938.74535",
+      "salario": "8000",
+      "desconto": "0",
       "dependentes": "0",
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3123"
     },
@@ -15,14 +15,6 @@
       "desconto": "78.38",
       "dependentes": "1",
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3213"
-    },
-    {
-      "nome": "Letícia Aurora Farias",
-      "cpf": "936.938.039-60",
-      "salario": "0",
-      "desconto": "0",
-      "dependentes": "0",
-      "id": "fd12a3g4s5h3fg1hgs4h45d64h3152"
     },
     {
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3925",
@@ -41,10 +33,10 @@
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3195"
     },
     {
-      "nome": "Davi Marcos",
+      "nome": "Davi Marcos Leones",
       "cpf": "069.608.367-75",
       "salario": "1800",
-      "desconto": "0",
+      "desconto": "10",
       "dependentes": "0",
       "id": "AwXhSwj"
     },
@@ -57,12 +49,44 @@
       "id": "-lm97ob"
     },
     {
-      "nome": "teste",
-      "cpf": "06960566536",
+      "nome": "fabiano",
+      "cpf": "06960555525",
       "salario": "1200",
       "desconto": "120",
-      "dependentes": "3",
-      "id": "63I3J5a"
+      "dependentes": "2",
+      "id": "MQ_wd3E"
+    },
+    {
+      "nome": "teste updatado",
+      "cpf": "120.235.225-22",
+      "salario": "12200",
+      "desconto": "120",
+      "dependentes": "2",
+      "id": "4P-8wex"
+    },
+    {
+      "nome": "inserido e updatado",
+      "cpf": "222.333.555-44",
+      "salario": "1500",
+      "desconto": "200",
+      "dependentes": "2",
+      "id": "HWqR8GX"
+    },
+    {
+      "nome": "testeado",
+      "cpf": "12255689966",
+      "salario": "1200",
+      "desconto": "120",
+      "dependentes": "1",
+      "id": "O6b3HhK"
+    },
+    {
+      "nome": "testeando ",
+      "cpf": "12345688877",
+      "salario": "12000",
+      "desconto": "1500",
+      "dependentes": "2",
+      "id": "4x5BiVt"
     }
   ]
 }

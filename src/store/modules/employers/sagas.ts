@@ -1,38 +1,39 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { AxiosResponse } from 'axios';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import api from '../../../services/api';
-import { ActionTypes } from './types';
+import { editEmployeeFailure, editEmployeeRequest } from './actions';
+import { ActionTypes, IEmployee, IEmployeeState } from './types';
 
-// type CheckProductStockRequest = ReturnType<typeof addProductToCartRequest>;
+type CheckEmployee = ReturnType<typeof editEmployeeRequest>;
 
-/* interface IStockResponse {
-  id: number;
-  quantity: number;
-} */
+interface IEmployeeResponse {
+  employee: IEmployee;
+  id: string;
+  cpf: string;
+  employers: IEmployee[];
+}
 
-function* checkProductStock(/* { payload } : CheckProductStockRequest */) {
-  /* const { employee } = payload;
-
-  const currentQuantity: number = yield select((state: IState) => {
-    return (
-      state.cart.items.find(item => item.product.id === product.id)?.quantity ??
-      0
+function* checkIfExistingEmployer({ payload }: CheckEmployee) {
+  const existingCPf = yield select((state: IEmployeeState) => {
+    return state.employee.employers?.filter(
+      item =>
+        item.employee.cpf === payload.employee.cpf &&
+        item.employee.id !== payload.employee.id,
     );
   });
 
-  const availableStockResponse: AxiosResponse<IStockResponse> = yield call(
+  const employeeItem: AxiosResponse<IEmployeeResponse> = yield call(
     api.get,
-    `employers/${id}`,
+    `employers/${payload.employee.id}`,
   );
- */
-  /*  if (availableStockResponse.data.quantity > currentQuantity) {
-    yield put(addProductToCartSuccess(product));
+
+  if (!existingCPf) {
+    yield put(editEmployeeRequest(employeeItem.data.employee));
   } else {
-    yield put(addProductToCartFailure(product.id));
-  } */
+    yield put(editEmployeeFailure(employeeItem.data.id));
+  }
 }
 
 export default all([
-  // takeLatest(ActionTypes.addProductToCartRequest, checkProductStock),
+  takeLatest(ActionTypes.editEmployeeRequest, checkIfExistingEmployer),
 ]);

@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-curly-newline */
-/* eslint-disable react/no-unused-prop-types */
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
@@ -7,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import api from '../../services/api';
-import { IEmployee, IEmployeeList } from '../../store/modules/employers/types';
+import { IEmployee } from '../../store/modules/employers/types';
 import calculateDiscountIRRF from '../../utils/CalculateIRRF';
 import formatValue from '../../utils/formatValue';
 import { cpfMask } from '../../utils/cpfMask';
@@ -27,6 +25,7 @@ interface IEmployersResponse {
 }
 
 const Dashboard: React.FC = () => {
+  const [isUpdate, setIsUpdate] = useState(true);
   const dispatch = useDispatch();
 
   const [employers, setEmployers] = useState<IEmployersResponse[]>([]);
@@ -63,6 +62,7 @@ const Dashboard: React.FC = () => {
   const handleUpdateEmployee = useCallback(
     (employee: IEmployee, employersList: any) => {
       dispatch(editEmployeeRequest(employee, employersList));
+      setIsUpdate(false);
     },
     [dispatch],
   );
@@ -109,32 +109,33 @@ const Dashboard: React.FC = () => {
                         color="#ff0b0b"
                         size={20}
                       />
-                      <Link
-                        to={{
-                          pathname: `/form-employee/${id}`,
-                          state: { id },
-                        }}
-                      >
-                        <FiEdit
-                          onClick={() =>
-                            handleUpdateEmployee(
-                              {
-                                employee: {
-                                  id,
-                                  nome,
-                                  cpf,
-                                  desconto,
-                                  salario,
-                                  dependentes,
+                      {isUpdate && (
+                        <Link
+                          to={{
+                            pathname: `/form-employee/${id}`,
+                            state: { id },
+                          }}
+                        >
+                          <FiEdit
+                            onClick={() =>
+                              handleUpdateEmployee(
+                                {
+                                  employee: {
+                                    id,
+                                    nome,
+                                    cpf,
+                                    desconto,
+                                    salario,
+                                    dependentes,
+                                  },
                                 },
-                              },
-                              employers,
-                            )
-                          }
-                          color="#3e863e"
-                          size={20}
-                        />
-                      </Link>
+                                employers,
+                              )}
+                            color="#3e863e"
+                            size={20}
+                          />
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 ),

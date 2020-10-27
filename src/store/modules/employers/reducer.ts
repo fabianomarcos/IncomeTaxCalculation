@@ -16,16 +16,8 @@ const INITIAL_STATE: IEmployee = {
 const employeeForm: Reducer<IEmployee> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ActionTypes.editEmployeeRequest: {
-      const { employers } = state;
-      const { employee } = state;
-      const { isUpdateRoute } = state;
-      // const { employee } = state;
+      const { employee, employers } = state;
 
-      console.log('employer', employee);
-      console.log('state', isUpdateRoute);
-      console.log('lista', employers);
-
-      //  const employeeRegisteredIndex = employers?.employers.findIndex(employee => employee.cpf === )
       return {
         ...action.payload,
       };

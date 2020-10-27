@@ -67,7 +67,7 @@ const Employee: React.FC = () => {
       <Container>
         <Content>
           <AnimationContainer>
-            <h1>Cadastro de Funcionários</h1>
+            <h1>{isUpdateRoute === '' ? 'Cadastro' : 'Atualização'}</h1>
 
             <Form ref={formRef} onSubmit={handleSubmit} initialData={employee}>
               <div className="input-content">
