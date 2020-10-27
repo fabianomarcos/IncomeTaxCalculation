@@ -26,7 +26,7 @@ const Header: React.FC = () => {
       <header>
         <Link onClick={() => setIsUpdate(true)} to="/">
           <div className="logo">
-            <img src={Logo} alt="GoFinances" />
+            <img src={Logo} alt="Gerenciador IRRF" />
             <span>Gerenciador</span>
           </div>
         </Link>
@@ -44,8 +44,7 @@ const Header: React.FC = () => {
                     dependentes: 0,
                   },
                   isUpdateRoute: '',
-                })
-              }
+                })}
               to="/form-employee"
             >
               Inserir Funcionário
