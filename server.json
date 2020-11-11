@@ -3,8 +3,8 @@
     {
       "nome": "Letícia Aurora Farias",
       "cpf": "936.938.745-35",
-      "salario": "5500",
-      "desconto": "253",
+      "salario": "1800",
+      "desconto": "0",
       "dependentes": "0",
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3123"
     },
@@ -23,14 +23,6 @@
       "salario": 4522,
       "desconto": 492.03,
       "dependentes": 3
-    },
-    {
-      "nome": "Valentina Clara",
-      "cpf": "101.151.404444",
-      "salario": "10000",
-      "desconto": "713.1",
-      "dependentes": "4",
-      "id": "fd12a3g4s5h3fg1hgs4h45d64h3195"
     },
     {
       "nome": "Davi Marcos Leones",
@@ -99,26 +91,18 @@
     {
       "nome": "Leticia leones",
       "cpf": "058.738.576-60",
-      "salario": "3000",
+      "salario": "5000",
       "desconto": "300",
       "dependentes": "2",
       "id": "JmFAruR"
     },
     {
-      "nome": "Teste de funcionário",
-      "cpf": "05875366983",
-      "salario": "5500",
-      "desconto": "350",
-      "dependentes": "2",
-      "id": "xJbEsvg"
-    },
-    {
-      "nome": "Fulano",
-      "cpf": "058626433853",
-      "salario": "9050,52",
-      "desconto": "552",
-      "dependentes": "4",
-      "id": "ufSomT-"
+      "nome": "Valentina Clara",
+      "cpf": "101.151.404-44",
+      "salario": "15000",
+      "desconto": "0500",
+      "dependentes": "10",
+      "id": "5SzRH3F"
     }
   ]
 }

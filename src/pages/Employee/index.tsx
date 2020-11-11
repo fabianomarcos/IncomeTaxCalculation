@@ -66,6 +66,15 @@ const Employee: React.FC = () => {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
+
+          addToast({
+            type: 'error',
+            title: `Preenchimento incorreto`,
+            description:
+              'Favor verificar campos errados e preencher novamente.',
+          });
+
+          return;
         }
 
         addToast({

@@ -3,9 +3,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import api from '../../services/api';
-import { IEmployee } from '../../store/modules/employers/types';
+import { IEmployee, IEmployeeState } from '../../store/modules/employers/types';
 import calculateDiscountIRRF from '../../utils/CalculateIRRF';
 import formatValue from '../../utils/formatValue';
 import { cpfMask } from '../../utils/cpfMask';
@@ -18,13 +18,18 @@ interface IEmployersResponse {
   nome: string;
   cpf: string;
   salario: number;
-  desconto: number;
-  dependentes: number;
-  descontoFormatted: string;
   salarioFormatted: string;
+  desconto: number;
+  descontoIRRFFormatted: string;
+  descontoINSSFormatted: string;
+  dependentes: number;
 }
 
 const Dashboard: React.FC = () => {
+  const { isUpdateRoute } = useSelector<IEmployeeState, IEmployee>(
+    stateInitial => stateInitial.employee,
+  );
+
   const [isUpdate, setIsUpdate] = useState(true);
   const dispatch = useDispatch();
 
@@ -38,7 +43,8 @@ const Dashboard: React.FC = () => {
           ...item,
           cpf: cpfMask(item.cpf),
           salarioFormatted: formatValue(item.salario),
-          descontoFormatted: formatValue(
+          descontoINSSFormatted: formatValue(item.desconto),
+          descontoIRRFFormatted: formatValue(
             calculateDiscountIRRF(item.salario, item.dependentes),
           ),
         };
@@ -79,7 +85,7 @@ const Dashboard: React.FC = () => {
                 <th>Salário</th>
                 <th>Desconto INSS</th>
                 <th>Dependentes</th>
-                <th>Desconto IRPF</th>
+                <th>Desconto IRRF</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -93,23 +99,24 @@ const Dashboard: React.FC = () => {
                   desconto,
                   salario,
                   salarioFormatted,
-                  descontoFormatted,
+                  descontoIRRFFormatted,
+                  descontoINSSFormatted,
                   dependentes,
                 }: any) => (
                   <tr key={id}>
                     <td className="name">{nome}</td>
                     <td>{cpf}</td>
                     <td>{salarioFormatted}</td>
-                    <td>{desconto}</td>
+                    <td>{descontoINSSFormatted}</td>
                     <td>{dependentes}</td>
-                    <td>{descontoFormatted}</td>
+                    <td>{descontoIRRFFormatted}</td>
                     <td>
                       <FiTrash2
                         onClick={() => handleDeleteEmployee(id)}
                         color="#ff0b0b"
                         size={20}
                       />
-                      {isUpdate && (
+                      {(isUpdate || !isUpdateRoute) && (
                         <Link
                           to={{
                             pathname: `/form-employee/${id}`,
@@ -123,7 +130,7 @@ const Dashboard: React.FC = () => {
                                   employee: {
                                     id,
                                     nome,
-                                    cpf,
+                                    cpf: cpfMask(cpf),
                                     desconto,
                                     salario,
                                     dependentes,
