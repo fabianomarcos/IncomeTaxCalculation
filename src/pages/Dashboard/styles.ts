@@ -69,6 +69,15 @@ export const TableContainer = styled.section`
       margin: 0 10px;
     }
   }
+
+  .empty {
+    font-size: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 50vh;
+  }
+
   @media (max-width: 500px) {
     table td {
       width: 90vw;

@@ -2,9 +2,9 @@
   "employers": [
     {
       "nome": "Letícia Aurora Farias",
-      "cpf": "936.938.74535",
-      "salario": "8000",
-      "desconto": "0",
+      "cpf": "936.938.745-35",
+      "salario": "5500",
+      "desconto": "253",
       "dependentes": "0",
       "id": "fd12a3g4s5h3fg1hgs4h45d64h3123"
     },
@@ -87,6 +87,38 @@
       "desconto": "1500",
       "dependentes": "2",
       "id": "4x5BiVt"
+    },
+    {
+      "nome": "Fabiano Marcos",
+      "cpf": "069.608.366-38",
+      "salario": "2250",
+      "desconto": "250",
+      "dependentes": "2",
+      "id": "x5uTVYE"
+    },
+    {
+      "nome": "Leticia leones",
+      "cpf": "058.738.576-60",
+      "salario": "3000",
+      "desconto": "300",
+      "dependentes": "2",
+      "id": "JmFAruR"
+    },
+    {
+      "nome": "Teste de funcionário",
+      "cpf": "05875366983",
+      "salario": "5500",
+      "desconto": "350",
+      "dependentes": "2",
+      "id": "xJbEsvg"
+    },
+    {
+      "nome": "Fulano",
+      "cpf": "058626433853",
+      "salario": "9050,52",
+      "desconto": "552",
+      "dependentes": "4",
+      "id": "ufSomT-"
     }
   ]
 }

@@ -130,7 +130,8 @@ const Dashboard: React.FC = () => {
                                   },
                                 },
                                 employers,
-                              )}
+                              )
+                            }
                             color="#3e863e"
                             size={20}
                           />
@@ -142,6 +143,10 @@ const Dashboard: React.FC = () => {
               )}
             </tbody>
           </table>
+
+          {!employers.length && (
+            <p className="empty">Ops! Não foi encontrado nenhum funcionário</p>
+          )}
         </TableContainer>
       </Container>
     </>
