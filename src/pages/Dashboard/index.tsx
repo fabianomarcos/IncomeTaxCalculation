@@ -3,9 +3,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import api from '../../services/api';
-import { IEmployee, IEmployeeState } from '../../store/modules/employers/types';
+import { IEmployee } from '../../store/modules/employers/types';
 import calculateDiscountIRRF from '../../utils/CalculateIRRF';
 import formatValue from '../../utils/formatValue';
 import { cpfMask } from '../../utils/cpfMask';
