@@ -12,8 +12,10 @@ import { cpfMask } from '../../utils/cpfMask';
 
 import { Container, TableContainer } from './styles';
 import { editEmployeeRequest } from '../../store/modules/employers/actions';
+import ModalDeleteEmployee from '../../components/ModalDeleteEmployee';
+import { useToast } from '../../hooks/toast';
 
-interface IEmployersResponse {
+export interface IEmployersResponse {
   id: string;
   nome: string;
   cpf: string;
@@ -26,15 +28,16 @@ interface IEmployersResponse {
 }
 
 const Dashboard: React.FC = () => {
-  const { isUpdateRoute } = useSelector<IEmployeeState, IEmployee>(
-    stateInitial => stateInitial.employee,
-  );
-
   const [isUpdate, setIsUpdate] = useState(true);
   const dispatch = useDispatch();
+  const { addToast } = useToast();
 
   const [employers, setEmployers] = useState<IEmployersResponse[]>([]);
-  const [modalOpen, setModalOpen] = useState(false);
+
+  const [deletingEmployee, setDeletingEmployee] = useState<IEmployersResponse>(
+    {} as IEmployersResponse,
+  );
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     api.get<IEmployersResponse[]>('/employers').then(response => {
@@ -53,15 +56,36 @@ const Dashboard: React.FC = () => {
     });
   }, []);
 
-  async function handleDeleteEmployee(id: string): Promise<void> {
+  function toggleDeleteModal(): void {
+    setDeleteModalOpen(!deleteModalOpen);
+  }
+
+  function handleDeleteEmployee(employee: IEmployersResponse): void {
+    setDeletingEmployee({ ...employee });
+    toggleDeleteModal();
+  }
+
+  async function confirmDeleteEmployee(
+    employee: IEmployersResponse,
+  ): Promise<void> {
     try {
-      setModalOpen(!modalOpen);
+      await api.delete(`/employers/${employee.id}`);
 
-      await api.delete(`/employers/${id}`);
+      setEmployers(
+        employers.filter(findEmployee => findEmployee.id !== employee.id),
+      );
 
-      setEmployers(employers.filter(findEmployee => findEmployee.id !== id));
+      addToast({
+        title: 'Funcionário deletado com sucesso.',
+        type: 'success',
+      });
     } catch (err) {
-      console.log(err);
+      addToast({
+        type: 'error',
+        title: 'Erro ao tentar deletar o funcionário.',
+        description:
+          'Nao foi possível realizar a operação, tente novamente mais tarde.',
+      });
     }
   }
 
@@ -75,6 +99,12 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
+      <ModalDeleteEmployee
+        isOpen={deleteModalOpen}
+        setIsOpen={toggleDeleteModal}
+        deletingEmployee={deletingEmployee}
+        confirmDeleteEmployee={confirmDeleteEmployee}
+      />
       <Container>
         <TableContainer>
           <table>
@@ -112,11 +142,23 @@ const Dashboard: React.FC = () => {
                     <td>{descontoIRRFFormatted}</td>
                     <td>
                       <FiTrash2
-                        onClick={() => handleDeleteEmployee(id)}
+                        onClick={() =>
+                          handleDeleteEmployee({
+                            id,
+                            nome,
+                            cpf,
+                            desconto,
+                            salario,
+                            salarioFormatted,
+                            descontoIRRFFormatted,
+                            descontoINSSFormatted,
+                            dependentes,
+                          })
+                        }
                         color="#ff0b0b"
                         size={20}
                       />
-                      {(isUpdate || !isUpdateRoute) && (
+                      {isUpdate && (
                         <Link
                           to={{
                             pathname: `/form-employee/${id}`,
