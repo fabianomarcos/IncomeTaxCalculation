@@ -16,7 +16,6 @@ const App: React.FC = () => (
       <Provider store={store}>
         <Router>
           <GlobalStyle />
-          <Header />
           <Routes />
         </Router>
       </Provider>
@@ -25,3 +24,5 @@ const App: React.FC = () => (
 );
 
 export default App;
+
+// showBtn={store.getState().employee.isUpdateRoute === ''

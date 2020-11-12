@@ -14,6 +14,7 @@ import { Container, TableContainer } from './styles';
 import { editEmployeeRequest } from '../../store/modules/employers/actions';
 import ModalDeleteEmployee from '../../components/ModalDeleteEmployee';
 import { useToast } from '../../hooks/toast';
+import Header from '../../components/Header';
 
 export interface IEmployersResponse {
   id: string;
@@ -105,6 +106,9 @@ const Dashboard: React.FC = () => {
         deletingEmployee={deletingEmployee}
         confirmDeleteEmployee={confirmDeleteEmployee}
       />
+      {!window.location.pathname.includes('form-employee') && (
+        <Header showBtn />
+      )}
       <Container>
         <TableContainer>
           <table>

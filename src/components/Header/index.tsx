@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -9,29 +9,34 @@ import Logo from '../../assets/logo.svg';
 import { setEmptyFormEmployee } from '../../store/modules/employers/actions';
 import { IEmployee } from '../../store/modules/employers/types';
 
-const Header: React.FC = () => {
-  const [isUpdate, setIsUpdate] = useState(true);
+interface IHeaderProps {
+  showBtn: boolean;
+}
+
+const Header: React.FC<IHeaderProps> = ({ showBtn }) => {
+  const [showButton, setShowButton] = useState(true);
   const dispatch = useDispatch();
 
   const resetForm = useCallback(
     (employee: IEmployee) => {
       dispatch(setEmptyFormEmployee(employee));
-      setIsUpdate(false);
     },
     [dispatch],
   );
 
+  useEffect(() => setShowButton(showBtn), [showBtn]);
+
   return (
     <Container>
       <header>
-        <Link onClick={() => setIsUpdate(true)} to="/">
+        <Link onClick={() => setShowButton(true)} to="/">
           <div className="logo">
             <img src={Logo} alt="Gerenciador IRRF" />
             <span>Gerenciador</span>
           </div>
         </Link>
         <nav>
-          {isUpdate && (
+          {showButton && (
             <Link
               onClick={() =>
                 resetForm({

@@ -15,6 +15,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { useToast } from '../../hooks/toast';
+import Header from '../../components/Header';
 
 const Employee: React.FC = () => {
   const state = useSelector<IEmployeeState, IEmployee>(
@@ -89,6 +90,7 @@ const Employee: React.FC = () => {
   );
   return (
     <>
+      <Header showBtn={false} />
       <Container>
         <Content>
           <AnimationContainer>
