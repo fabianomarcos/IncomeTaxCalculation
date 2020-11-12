@@ -1,18 +1,6 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/interface-name-prefix */
 import React, { useState, useEffect } from 'react';
 
 import ReactModal from 'react-modal';
-
-interface IFoodPlate {
-  id: number;
-  name: string;
-  image: string;
-  price: string;
-  description: string;
-  available: boolean;
-}
 
 interface IModalProps {
   children: any;
@@ -20,16 +8,16 @@ interface IModalProps {
   setIsOpen: () => void;
 }
 
-const Modal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
-  const [modalStatus, setModalStatus] = useState(true);
+const Modal: React.FC<IModalProps> = ({ children, isOpen, setIsOpen }) => {
+  const [modalStatus, setModalStatus] = useState(isOpen);
 
   useEffect(() => {
-    setModalStatus(true);
+    setModalStatus(isOpen);
   }, [isOpen]);
 
   return (
     <ReactModal
-      shouldCloseOnOverlayClick={!false}
+      shouldCloseOnOverlayClick
       onRequestClose={setIsOpen}
       isOpen={modalStatus}
       ariaHideApp={false}
@@ -52,15 +40,7 @@ const Modal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
         },
       }}
     >
-      <button>close</button>
-      <div>I am a modal</div>
-      <form>
-        <input />
-        <button>tab navigation</button>
-        <button>stays</button>
-        <button>inside</button>
-        <button>the modal</button>
-      </form>
+      {children}
     </ReactModal>
   );
 };

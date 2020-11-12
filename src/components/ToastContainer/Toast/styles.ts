@@ -41,7 +41,7 @@ export const Container = styled(animated.div)<ToastProps>`
     flex: 1;
 
     strong {
-      padding-top: 5px;
+      padding: 5px;
     }
   }
   + div {
