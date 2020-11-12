@@ -32,7 +32,7 @@ export const TableContainer = styled.section`
     th {
       color: #969cb3;
       font-weight: normal;
-      padding: 20px 32px;
+      padding: 10px 25px;
       text-align: left;
       font-size: 16px;
       line-height: 24px;
@@ -43,7 +43,7 @@ export const TableContainer = styled.section`
     }
 
     td {
-      padding: 10px 15px;
+      padding: 10px 10px;
       border: 0;
       background: #fff;
       font-size: 16px;
@@ -69,6 +69,15 @@ export const TableContainer = styled.section`
       margin: 0 10px;
     }
   }
+
+  .empty {
+    font-size: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 50vh;
+  }
+
   @media (max-width: 500px) {
     table td {
       width: 90vw;

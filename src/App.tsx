@@ -8,16 +8,19 @@ import store from './store';
 
 import GlobalStyle from './styles/global';
 import Header from './components/Header';
+import AppProvider from './hooks';
 
 const App: React.FC = () => (
   <>
-    <Provider store={store}>
-      <Router>
-        <GlobalStyle />
-        <Header />
-        <Routes />
-      </Router>
-    </Provider>
+    <AppProvider>
+      <Provider store={store}>
+        <Router>
+          <GlobalStyle />
+          <Header />
+          <Routes />
+        </Router>
+      </Provider>
+    </AppProvider>
   </>
 );
 

@@ -14,6 +14,8 @@ import Dashboard from '../Dashboard';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import { useToast } from '../../hooks/toast';
+
 const Employee: React.FC = () => {
   const state = useSelector<IEmployeeState, IEmployee>(
     stateInitial => stateInitial.employee,
@@ -24,6 +26,8 @@ const Employee: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const history = useHistory();
+
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: IEmployee) => {
@@ -45,22 +49,43 @@ const Employee: React.FC = () => {
           abortEarly: false,
         });
 
-        if (!isUpdateRoute) {
-          await api.post('/employers', data);
-        } else {
-          await api.put(isUpdateRoute, data);
-        }
+        isUpdateRoute
+          ? await api.put(isUpdateRoute, data)
+          : await api.post('/employers', data);
 
         history.push('/');
+
+        const messageToast = isUpdateRoute ? 'atualizado' : 'cadastrado';
+
+        addToast({
+          type: 'success',
+          title: `Funcionário ${messageToast} com sucesso`,
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
+
+          addToast({
+            type: 'error',
+            title: `Preenchimento incorreto`,
+            description:
+              'Favor verificar campos errados e preencher novamente.',
+          });
+
+          return;
         }
+
+        addToast({
+          type: 'error',
+          title: `Ocorreu algum erro`,
+          description:
+            'Não foi possível inserir as informações do funcionário.',
+        });
       }
     },
-    [history, isUpdateRoute],
+    [history, isUpdateRoute, addToast],
   );
   return (
     <>
