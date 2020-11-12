@@ -41,7 +41,7 @@ const ModalDeleteEmployee: React.FC<IModalProps> = ({
         onSubmit={handleSubmit}
         initialData={deletingEmployee}
       >
-        <h2>Deseja realmente deletar esse funcionário?</h2>
+        <h2>Deseja realmente excluir este funcionário?</h2>
 
         <div className="input-content">
           <div>
