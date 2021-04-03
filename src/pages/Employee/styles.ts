@@ -48,7 +48,6 @@ export const AnimationContainer = styled.div`
         .button-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            padding: 0 20px;
             gap: 21.8%;
             a {
                 margin: 0;
@@ -103,13 +102,30 @@ export const AnimationContainer = styled.div`
         }
     }
 
+    @media (max-width: 1244px) {
+        .button-content {
+            padding: 0 20px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        table td {
+            width: 90vw;
+            display: inline-block;
+        }
+
+        th {
+            display: none;
+        }
+    }
+
     @media (max-width: 500px) {
         .input-content {
             flex-wrap: wrap;
             justify-content: center;
 
             div {
-                width: 90vw;
+                width: 100%;
             }
         }
 
