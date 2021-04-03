@@ -11,10 +11,12 @@ import { IEmployee } from '../../store/modules/employers/types';
 
 interface IHeaderProps {
   showBtn: boolean;
+  employersList?: IEmployee[];
 }
 
-const Header: React.FC<IHeaderProps> = ({ showBtn }) => {
+const Header: React.FC<IHeaderProps> = ({ showBtn, employersList }) => {
   const [showButton, setShowButton] = useState(true);
+  const [employers, setEmployers] = useState(employersList);
   const dispatch = useDispatch();
 
   const resetForm = useCallback(
@@ -25,6 +27,7 @@ const Header: React.FC<IHeaderProps> = ({ showBtn }) => {
   );
 
   useEffect(() => setShowButton(showBtn), [showBtn]);
+  useEffect(() => setEmployers(employersList), [employersList]);
 
   return (
     <Container>
@@ -49,6 +52,7 @@ const Header: React.FC<IHeaderProps> = ({ showBtn }) => {
                     dependentes: 0,
                   },
                   isUpdateRoute: '',
+                  employers,
                 })
               }
               to="/form-employee"

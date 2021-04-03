@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import getValidationErrors from '../../utils/getValidationErrors';
 import api from '../../services/api';
 
@@ -16,13 +16,26 @@ import Button from '../../components/Button';
 
 import { useToast } from '../../hooks/toast';
 import Header from '../../components/Header';
+import { addEmployeeRequest } from '../../store/modules/employers/actions';
+
+interface IHasCpf {
+  hasFailure: boolean;
+}
 
 const Employee: React.FC = () => {
   const state = useSelector<IEmployeeState, IEmployee>(
     stateInitial => stateInitial.employee,
   );
 
-  const { isUpdateRoute, employee } = state;
+  /*  const hasFailure = useSelector<IEmployeeState, boolean | undefined>(
+    stateInitial => stateInitial.employee.hasFailure,
+  ); */
+
+  // console.log('hasFailure', hasFailure);
+
+  const { isUpdateRoute, employee, employers, hasFailure } = state;
+
+  const dispatch = useDispatch();
 
   const formRef = useRef<FormHandles>(null);
 
@@ -30,25 +43,49 @@ const Employee: React.FC = () => {
 
   const { addToast } = useToast();
 
+  const handleAddEmployee = useCallback(
+    (employersList: any, currentEmployee: IEmployee) => {
+      dispatch(addEmployeeRequest(employersList, currentEmployee));
+    },
+    [dispatch],
+  );
+
   const handleSubmit = useCallback(
     async (data: IEmployee) => {
       formRef.current?.setErrors({});
 
       const message = 'Campo obrigatório';
       const yupRequired = Yup.string().required(message);
+      const regex = /^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}-?[0-9]{2}/g;
 
       try {
         const schema = Yup.object().shape({
           nome: yupRequired,
-          cpf: yupRequired,
+          cpf: yupRequired.matches(regex, `cpf inválido`),
           salario: yupRequired,
           desconto: yupRequired,
           dependentes: yupRequired,
         });
 
+        if (employers) await handleAddEmployee(employers, data);
+
+        const messageCpf = 'Cpf já cadastrado';
+
         await schema.validate(data, {
           abortEarly: false,
         });
+
+        console.log(hasFailure);
+
+        if (hasFailure) {
+          addToast({
+            title: messageCpf,
+            description: 'Favor verificar o CPF digitado',
+            type: 'error',
+          });
+
+          return;
+        }
 
         isUpdateRoute
           ? await api.put(isUpdateRoute, data)
@@ -86,8 +123,16 @@ const Employee: React.FC = () => {
         });
       }
     },
-    [history, isUpdateRoute, addToast],
+    [
+      employers,
+      handleAddEmployee,
+      hasFailure,
+      isUpdateRoute,
+      history,
+      addToast,
+    ],
   );
+
   return (
     <>
       <Header showBtn={false} />

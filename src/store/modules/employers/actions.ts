@@ -1,3 +1,4 @@
+import { IEmployersResponse } from '../../../pages/Dashboard';
 import { ActionTypes, IEmployee, IEmployeeList } from './types';
 
 export function editEmployeeRequest(
@@ -9,32 +10,62 @@ export function editEmployeeRequest(
     payload: {
       ...employee,
       isUpdateRoute: `/employers/${employee.employee.id}`,
-      employers: { ...employersList, employee },
+      employers: { ...employersList },
     },
   };
 }
 
-export function editEmployeeSuccess(
+export function addEmployeeSuccess(
+  employers: IEmployee[],
   employee: IEmployee,
-  employersList?: IEmployeeList,
 ) {
-  return {
-    type: ActionTypes.editEmployeeSuccess,
+  const result = {
+    type: ActionTypes.addEmployeeRequest,
     payload: {
-      ...employee,
-      isUpdateRoute: `/employers/${employee.employee.id}`,
-      employers: { ...employersList, employee },
+      employee,
+      isUpdateRoute: '',
+      employers,
     },
   };
+
+  console.log('addSuccess', result);
+
+  return result;
 }
 
-export function editEmployeeFailure(employeeId: string) {
-  return {
-    type: ActionTypes.editEmployeeFailure,
+export function addEmployeeRequest(
+  employers: IEmployee[],
+  employee: IEmployee,
+) {
+  const result = {
+    type: ActionTypes.addEmployeeRequest,
     payload: {
-      employeeId,
+      employee,
+      isUpdateRoute: '',
+      employers,
     },
   };
+
+  console.log('add', result);
+
+  return result;
+}
+
+export function employeeFailure(
+  employeeList: IEmployersResponse,
+  hasFailure: boolean,
+) {
+  const result = {
+    type: ActionTypes.employeeFailure,
+    payload: {
+      employeeName: employeeList.nome,
+      hasFailure,
+    },
+  };
+
+  console.log('failure', result);
+
+  return result;
 }
 
 export function setEmptyFormEmployee(employee: IEmployee) {
@@ -43,15 +74,6 @@ export function setEmptyFormEmployee(employee: IEmployee) {
     payload: {
       ...employee,
       isUpdateRoute: '',
-    },
-  };
-}
-
-export function registerEmployeeFailure() {
-  return {
-    type: ActionTypes.registerEmployeeFailure,
-    payload: {
-      employee: {},
     },
   };
 }

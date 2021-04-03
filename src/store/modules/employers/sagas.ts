@@ -1,39 +1,30 @@
-import { AxiosResponse } from 'axios';
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import api from '../../../services/api';
-import { editEmployeeFailure, editEmployeeRequest } from './actions';
-import { ActionTypes, IEmployee, IEmployeeState } from './types';
+import { all, put, takeLatest } from 'redux-saga/effects';
+import { IEmployersResponse } from '../../../pages/Dashboard';
+import { cpfMask } from '../../../utils/cpfMask';
+import { addEmployeeSuccess } from './actions';
+import { ActionTypes } from './types';
 
-type CheckEmployee = ReturnType<typeof editEmployeeRequest>;
+// type CheckEmployee = ReturnType<typeof employeeFailure>;
 
-interface IEmployeeResponse {
-  employee: IEmployee;
-  id: string;
-  cpf: string;
-  employers: IEmployee[];
-}
+function* checkIfExistingEmployer({ payload }: any) {
+  const { employee, employers } = payload;
 
-function* checkIfExistingEmployer({ payload }: CheckEmployee) {
-  const existingCPf = yield select((state: IEmployeeState) => {
-    return state.employee.employers?.filter(
-      item =>
-        item.employee.cpf === payload.employee.cpf &&
-        item.employee.id !== payload.employee.id,
-    );
-  });
-
-  const employeeItem: AxiosResponse<IEmployeeResponse> = yield call(
-    api.get,
-    `employers/${payload.employee.id}`,
+  const indexCPf: number = employers.findIndex(
+    ({ cpf }: IEmployersResponse) => cpfMask(employee.cpf) === cpfMask(cpf),
   );
 
-  if (!existingCPf) {
-    yield put(editEmployeeRequest(employeeItem.data.employee));
+  console.log(indexCPf);
+
+  if (indexCPf >= 0) {
+    console.log('falha');
+    // yield put(employeeFailure(employee, indexCPf > -1));
+    yield put(addEmployeeSuccess(employers, employee));
   } else {
-    yield put(editEmployeeFailure(employeeItem.data.id));
+    console.log('ok');
+    yield put(addEmployeeSuccess(employers, employee));
   }
 }
 
 export default all([
-  takeLatest(ActionTypes.editEmployeeRequest, checkIfExistingEmployer),
+  takeLatest(ActionTypes.addEmployeeRequest, checkIfExistingEmployer),
 ]);

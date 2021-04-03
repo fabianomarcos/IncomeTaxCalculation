@@ -91,8 +91,8 @@ const Dashboard: React.FC = () => {
   }
 
   const handleUpdateEmployee = useCallback(
-    (employee: IEmployee, employersList: any) => {
-      dispatch(editEmployeeRequest(employee, employersList));
+    (employee: IEmployee, employeeList: any) => {
+      dispatch(editEmployeeRequest(employee, employeeList));
       setIsUpdate(false);
     },
     [dispatch],
@@ -107,7 +107,10 @@ const Dashboard: React.FC = () => {
         confirmDeleteEmployee={confirmDeleteEmployee}
       />
       {!window.location.pathname.includes('form-employee') && (
-        <Header showBtn />
+        <Header
+          showBtn
+          employersList={(employers as IEmployee[] | {}) as IEmployee[]}
+        />
       )}
       <Container>
         <TableContainer>
@@ -196,10 +199,6 @@ const Dashboard: React.FC = () => {
               )}
             </tbody>
           </table>
-
-          {!employers.length && (
-            <p className="empty">Ops! Não foi encontrado nenhum funcionário</p>
-          )}
         </TableContainer>
       </Container>
     </>
