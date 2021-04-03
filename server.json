@@ -25,7 +25,7 @@
       "id": "-lm97ob"
     },
     {
-      "nome": "Teste update",
+      "nome": "Teste update 2",
       "cpf": "120.235.225-29",
       "salario": "12200",
       "desconto": "120",
@@ -39,22 +39,6 @@
       "desconto": "200",
       "dependentes": "2",
       "id": "HWqR8GX"
-    },
-    {
-      "nome": "testeado",
-      "cpf": "12255689966",
-      "salario": "1200",
-      "desconto": "120",
-      "dependentes": "1",
-      "id": "O6b3HhK"
-    },
-    {
-      "nome": "testeando ",
-      "cpf": "12345688877",
-      "salario": "12000",
-      "desconto": "1500",
-      "dependentes": "2",
-      "id": "4x5BiVt"
     },
     {
       "nome": "Valentina Clara",
@@ -73,8 +57,8 @@
       "id": "riibxEi"
     },
     {
-      "nome": "teste",
-      "cpf": "06966666666",
+      "nome": "Funcionário Bom",
+      "cpf": "74851747648",
       "salario": "15000",
       "desconto": "150",
       "dependentes": "2",
@@ -199,6 +183,14 @@
       "desconto": "0",
       "dependentes": "0",
       "id": "HXbscSj"
+    },
+    {
+      "nome": "Vagner Arantes",
+      "cpf": "12023522529",
+      "salario": "15000",
+      "desconto": "122",
+      "dependentes": "1",
+      "id": "tC_UX1I"
     }
   ]
 }
