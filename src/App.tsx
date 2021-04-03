@@ -7,7 +7,6 @@ import Routes from './routes';
 import store from './store';
 
 import GlobalStyle from './styles/global';
-import Header from './components/Header';
 import AppProvider from './hooks';
 
 const App: React.FC = () => (
