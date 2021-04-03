@@ -1,8 +1,14 @@
 export enum ActionTypes {
   editEmployeeRequest = 'EDIT_EMPLOYEE_REQUEST',
   editEmployeeSuccess = 'EDIT_EMPLOYEE_SUCCESS',
-  editEmployeeFailure = 'EDIT_EMPLOYEE_FAILURE',
+
+  employeeFailure = 'EMPLOYEE_FAILURE',
+
+  addEmployeeRequest = 'ADD_EMPLOYEE_REQUEST',
+  addEmployeeSuccess = 'ADD_EMPLOYEE_SUCCESS',
+
   resetForm = 'RESET_FORM',
+
   deleteEmployeeRequest = 'DELETE_EMPLOYEE_REQUEST',
   registerEmployeeSuccess = 'REGISTER_EMPLOYEE_SUCCESS',
   registerEmployeeFailure = 'REGISTER_EMPLOYEE_FAILURE',
@@ -19,6 +25,7 @@ export interface IEmployee {
   };
   isUpdateRoute?: string;
   employers?: IEmployee[];
+  hasFailure?: boolean;
 }
 
 export interface IEmployeeList {
@@ -29,4 +36,7 @@ export interface IEmployeeList {
 
 export interface IEmployeeState {
   employee: IEmployee;
+  isUpdateRoute?: string;
+  employers?: IEmployee[];
+  hasFailure?: boolean;
 }
