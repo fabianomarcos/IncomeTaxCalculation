@@ -1,4 +1,6 @@
+import produce from 'immer';
 import { Reducer } from 'redux';
+import { cpfMask } from '../../../utils/cpfMask';
 import { ActionTypes, IEmployee } from './types';
 
 const INITIAL_STATE: IEmployee = {
@@ -11,28 +13,62 @@ const INITIAL_STATE: IEmployee = {
     dependentes: 0,
   },
   isUpdateRoute: '',
+  hasFailure: false,
 };
 
 const employeeForm: Reducer<IEmployee> = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case ActionTypes.editEmployeeRequest: {
-      const { employee, employers } = state;
+  return produce(state, draft => {
+    switch (action.type) {
+      case ActionTypes.editEmployeeRequest: {
+        return {
+          ...action.payload,
+        };
+      }
 
-      return {
-        ...action.payload,
-      };
-    }
+      case ActionTypes.addEmployeeSuccess: {
+        console.log('add', action.payload);
+        const { employee, employers } = draft;
 
-    case ActionTypes.resetForm: {
-      return {
-        ...action.payload,
-      };
-    }
+        const indexCPf = employers?.findIndex(
+          item => cpfMask(employee.cpf) === cpfMask(item.employee.cpf),
+        );
 
-    default: {
-      return state;
+        if (indexCPf) {
+          if (indexCPf > -1) {
+            console.log('erro');
+            throw new Error('Cpf já cadastrado');
+          }
+        }
+
+        console.log(indexCPf);
+
+        return {
+          hasFailure: indexCPf,
+          ...action.payload,
+        };
+      }
+
+      case ActionTypes.employeeFailure: {
+        const result = {
+          ...action.payload,
+        };
+        console.log('failure', action.payload);
+        console.log('failure state', state);
+
+        return result;
+      }
+
+      case ActionTypes.resetForm: {
+        return {
+          ...action.payload,
+        };
+      }
+
+      default: {
+        return state;
+      }
     }
-  }
+  });
 };
 
 export default employeeForm;

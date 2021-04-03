@@ -96,4 +96,38 @@ export const Form = styled(Unform)`
       }
     }
   }
+
+  @media (max-width: 500px) {
+    padding: 0 40px;
+
+    h2 {
+      font-size: 30px;
+      margin-top: 5px;
+    }
+
+    .input-content {
+      align-items: center;
+      gap: 0;
+
+      > div {
+        width: 120%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .button-content {
+      justify-content: center;
+
+      button {
+        margin-top: 15px;
+        width: 120px;
+
+        .icon {
+          display: none;
+        }
+      }
+    }
+  }
 `;

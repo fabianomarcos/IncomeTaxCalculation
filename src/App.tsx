@@ -7,7 +7,6 @@ import Routes from './routes';
 import store from './store';
 
 import GlobalStyle from './styles/global';
-import Header from './components/Header';
 import AppProvider from './hooks';
 
 const App: React.FC = () => (
@@ -16,7 +15,6 @@ const App: React.FC = () => (
       <Provider store={store}>
         <Router>
           <GlobalStyle />
-          <Header />
           <Routes />
         </Router>
       </Provider>
@@ -25,3 +23,5 @@ const App: React.FC = () => (
 );
 
 export default App;
+
+// showBtn={store.getState().employee.isUpdateRoute === ''

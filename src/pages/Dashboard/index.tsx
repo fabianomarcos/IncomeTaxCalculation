@@ -3,9 +3,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import api from '../../services/api';
-import { IEmployee, IEmployeeState } from '../../store/modules/employers/types';
+import { IEmployee } from '../../store/modules/employers/types';
 import calculateDiscountIRRF from '../../utils/CalculateIRRF';
 import formatValue from '../../utils/formatValue';
 import { cpfMask } from '../../utils/cpfMask';
@@ -14,6 +14,7 @@ import { Container, TableContainer } from './styles';
 import { editEmployeeRequest } from '../../store/modules/employers/actions';
 import ModalDeleteEmployee from '../../components/ModalDeleteEmployee';
 import { useToast } from '../../hooks/toast';
+import Header from '../../components/Header';
 
 export interface IEmployersResponse {
   id: string;
@@ -90,8 +91,8 @@ const Dashboard: React.FC = () => {
   }
 
   const handleUpdateEmployee = useCallback(
-    (employee: IEmployee, employersList: any) => {
-      dispatch(editEmployeeRequest(employee, employersList));
+    (employee: IEmployee, employeeList: any) => {
+      dispatch(editEmployeeRequest(employee, employeeList));
       setIsUpdate(false);
     },
     [dispatch],
@@ -105,6 +106,12 @@ const Dashboard: React.FC = () => {
         deletingEmployee={deletingEmployee}
         confirmDeleteEmployee={confirmDeleteEmployee}
       />
+      {!window.location.pathname.includes('form-employee') && (
+        <Header
+          showBtn
+          employersList={(employers as IEmployee[] | {}) as IEmployee[]}
+        />
+      )}
       <Container>
         <TableContainer>
           <table>
@@ -192,10 +199,6 @@ const Dashboard: React.FC = () => {
               )}
             </tbody>
           </table>
-
-          {!employers.length && (
-            <p className="empty">Ops! Não foi encontrado nenhum funcionário</p>
-          )}
         </TableContainer>
       </Container>
     </>

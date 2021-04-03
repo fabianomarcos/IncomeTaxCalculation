@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 
-import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
+import { FiTrash2, FiXCircle } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from './styles';
 import Modal from '../Modal';
@@ -41,7 +41,7 @@ const ModalDeleteEmployee: React.FC<IModalProps> = ({
         onSubmit={handleSubmit}
         initialData={deletingEmployee}
       >
-        <h2>Deseja realmente deletar esse funcionário?</h2>
+        <h2>Deseja realmente excluir este funcionário?</h2>
 
         <div className="input-content">
           <div>
@@ -90,7 +90,7 @@ const ModalDeleteEmployee: React.FC<IModalProps> = ({
           <button type="submit" data-testid="delete-food-button">
             <div className="text">Deletar</div>
             <div className="icon">
-              <FiCheckSquare size={24} />
+              <FiTrash2 size={24} />
             </div>
           </button>
         </div>
